@@ -48,7 +48,8 @@ func streamToArray() ([2][]int, int) {
 }
 
 func getRating(n, gas, lo, hi int, nums []int) int {
-	if hi-lo <= 1 || n == -1 {
+  //if only one left in range or we filtered all bits, take first in range 
+	if hi-lo == 1 || n == -1 {
 		return nums[lo]
 	}
 	marker := 1 << n
@@ -77,10 +78,8 @@ func getRating(n, gas, lo, hi int, nums []int) int {
 		//else diff will swap the two
 		nums[left] ^= diff
 		nums[right] ^= diff
-		//handle the case where left and right are greater??
-		//additions should be at end??
 
-		//inc left cursor is left points to 0 at nth bit
+		//inc left cursor if left points to 0 at nth bit
 		//dec right cursor if right points to 1 at nth bit
 		left += 1 - ((nums[left] & marker) >> n)
 		right -= (nums[right] & marker) >> n
